@@ -1,9 +1,13 @@
+using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+
 
 namespace WarehouseManagementSystem
 {
@@ -41,10 +45,28 @@ namespace WarehouseManagementSystem
     // Database Manager
     public class DatabaseManager
     {
+        private string connectionString; // safety string for connection
 
-        // Ensure you're using this exact format:
-        private string connectionString =
-            "Server=localhost;Database=warehouse_db;Uid=Georgios;Pwd=Cr3gn76!;";
+        public DatabaseManager()
+        {
+            // Build configuration
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("secrets.json", optional: true, reloadOnChange: true);
+
+            IConfiguration config = builder.Build();
+
+            // Get base connection string
+            string baseConnection = config.GetConnectionString("WarehouseDB");
+
+            // Get password from secrets or environment variables
+            string password = config["DbPassword"] ??
+                              Environment.GetEnvironmentVariable("DB_PASSWORD");
+
+            // Complete connection string
+            connectionString = $"{baseConnection}Pwd={password};";
+        }
 
         public MySqlConnection GetConnection()
         {

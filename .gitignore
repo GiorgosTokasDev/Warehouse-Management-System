@@ -22,4 +22,7 @@ bld/
 
 # Other VS files
 *.vsidx
-*.vssidx
+*.vssidx 
+# Secrets 
+secrets.json 
+*.user 
