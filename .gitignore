@@ -30,7 +30,11 @@ bld/
 
 # Secrets 
 secrets.json 
-*.user
+
+# Configuration files with sensitive data
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
 
 # .NET Core
 project.lock.json
