@@ -22,7 +22,42 @@ bld/
 
 # Other VS files
 *.vsidx
-*.vssidx 
+*.vssidx
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
 # Secrets 
 secrets.json 
-*.user 
+*.user
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Cache files
+*.cache
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
