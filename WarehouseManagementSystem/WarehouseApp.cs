@@ -2,7 +2,7 @@ using WarehouseManagementSystem.Forms;
 
 namespace WarehouseManagementSystem
 {
-    internal static class Application
+    internal static class WarehouseApp
     {
         [STAThread]
         static void Main()
@@ -16,7 +16,7 @@ namespace WarehouseManagementSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Application error: {ex.Message}", "Fatal Error",
+                MessageBox.Show($"WarehouseApp error: {ex.Message}", "Fatal Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
