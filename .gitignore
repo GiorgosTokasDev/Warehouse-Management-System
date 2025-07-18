@@ -1,8 +1,10 @@
-# Visual Studio files
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# Visual Studio
+.vs/
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
 
 # Build results
 [Dd]ebug/
@@ -11,27 +13,20 @@
 [Rr]eleases/
 x64/
 x86/
-bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
 
-# Visual Studio cache/options directory
-.vs/
-.vscode/
-
-# Other VS files
+# Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 *.vsidx
 *.vssidx
 
-# JetBrains Rider
-.idea/
-*.sln.iml
-
-# Secrets 
-secrets.json 
-
 # Configuration files with sensitive data
+secrets.json
 appsettings.json
 appsettings.Development.json
 appsettings.Production.json
@@ -65,9 +60,3 @@ artifacts/
 .Trashes
 ehthumbs.db
 Thumbs.db
-# JetBrains IDE 
-.idea/
-*.suo
-*.user
-bin/
-obj/
