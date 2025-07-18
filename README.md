@@ -1,6 +1,7 @@
 # Warehouse Management System  
   
-![Main Interface](docs/screenshots/main-interface.png)  
+<img src="https://i.imgur.com/WRWgguB.png" height="50%" width="50%" alt="Main Interface"/>
+
   
 A comprehensive warehouse inventory management solution built with C# WinForms and MySQL.  
   
