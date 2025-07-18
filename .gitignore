@@ -65,3 +65,9 @@ artifacts/
 .Trashes
 ehthumbs.db
 Thumbs.db
+# JetBrains IDE 
+.idea/
+*.suo
+*.user
+bin/
+obj/
