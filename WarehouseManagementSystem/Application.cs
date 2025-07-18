@@ -2,17 +2,17 @@ using WarehouseManagementSystem.Forms;
 
 namespace WarehouseManagementSystem
 {
-    internal static class Program
+    internal static class Application
     {
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
             try
             {
-                Application.Run(new MainForm());
+                System.Windows.Forms.Application.Run(new MainForm());
             }
             catch (Exception ex)
             {
