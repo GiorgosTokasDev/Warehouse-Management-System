@@ -63,7 +63,7 @@ private const int CANCEL_BUTTON_LEFT = 300;
 private void InitializeComponent()
 {
     this.Text = isEditMode ? "Edit Product" : "Add New Product";
-    this.Size = new Size(FORM_WIDTH, FORM_HEIGHT);
+    this.Size = new Size(FORM_WIDTH, 450); // Αύξηση ύψους για καλύτερο layout
     this.StartPosition = FormStartPosition.CenterParent;
     this.FormBorderStyle = FormBorderStyle.FixedDialog;
     this.MaximizeBox = false;
@@ -71,24 +71,40 @@ private void InitializeComponent()
 
     var labels = new[] { "Product Code", "Product Name", "Description", "Category", "Unit Price", "Min Stock Level" };
     TextBox[] fields = new TextBox[labels.Length];
+    
+    int currentTop = TOP_MARGIN;
+    const int MULTILINE_EXTRA_SPACING = 40; // Επιπλέον spacing μετά το multiline
+    
     for (int i = 0; i < labels.Length; i++)
     {
         var lbl = new Label
         {
             Text = labels[i] + ":",
-            Location = new Point(LEFT_MARGIN, TOP_MARGIN + i * VERTICAL_SPACING),
+            Location = new Point(LEFT_MARGIN, currentTop),
             Size = new Size(LABEL_WIDTH, LABEL_HEIGHT)
         };
 
+        bool isDescription = labels[i] == "Description";
         var box = new TextBox
         {
-            Location = new Point(TEXTBOX_LEFT, TOP_MARGIN + i * VERTICAL_SPACING),
-            Size = new Size(TEXTBOX_WIDTH, labels[i] == "Description" ? MULTILINE_TEXTBOX_HEIGHT : TEXTBOX_HEIGHT),
-            Multiline = labels[i] == "Description"
+            Location = new Point(TEXTBOX_LEFT, currentTop),
+            Size = new Size(TEXTBOX_WIDTH, isDescription ? MULTILINE_TEXTBOX_HEIGHT : TEXTBOX_HEIGHT),
+            Multiline = isDescription
         };
+        
         fields[i] = box;
         this.Controls.Add(lbl);
         this.Controls.Add(box);
+        
+        // Υπολογισμός επόμενης θέσης
+        if (isDescription)
+        {
+            currentTop += VERTICAL_SPACING + MULTILINE_EXTRA_SPACING; // Επιπλέον χώρος μετά το Description
+        }
+        else
+        {
+            currentTop += VERTICAL_SPACING;
+        }
     }
 
     txtProductCode = fields[0];
@@ -103,7 +119,7 @@ private void InitializeComponent()
         Text = "Save",
         BackColor = Color.MediumSeaGreen,
         ForeColor = Color.White,
-        Location = new Point(SAVE_BUTTON_LEFT, BUTTON_TOP),
+        Location = new Point(SAVE_BUTTON_LEFT, 360), // Μετακίνηση κουμπιών χαμηλότερα
         Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT)
     };
     btnSave.Click += BtnSave_Click;
@@ -112,7 +128,7 @@ private void InitializeComponent()
     {
         Text = "Cancel",
         BackColor = Color.White,
-        Location = new Point(CANCEL_BUTTON_LEFT, BUTTON_TOP),
+        Location = new Point(CANCEL_BUTTON_LEFT, 360),
         Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT)
     };
     btnCancel.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
