@@ -37,66 +37,89 @@ namespace WarehouseManagementSystem.Forms
             }
         }
 
-        private void InitializeComponent()
+        
+private const int FORM_WIDTH = 420;
+private const int FORM_HEIGHT = 400;
+private const int FONT_SIZE = 9;
+
+private const int LEFT_MARGIN = 20;
+private const int TOP_MARGIN = 25;
+private const int VERTICAL_SPACING = 45;
+
+private const int LABEL_WIDTH = 110;
+private const int LABEL_HEIGHT = 20;
+
+private const int TEXTBOX_LEFT = 140;
+private const int TEXTBOX_WIDTH = 240;
+private const int TEXTBOX_HEIGHT = 24;
+private const int MULTILINE_TEXTBOX_HEIGHT = 60;
+
+private const int BUTTON_TOP = 310;
+private const int BUTTON_WIDTH = 80;
+private const int BUTTON_HEIGHT = 30;
+private const int SAVE_BUTTON_LEFT = 200;
+private const int CANCEL_BUTTON_LEFT = 300;
+
+private void InitializeComponent()
+{
+    this.Text = isEditMode ? "Edit Product" : "Add New Product";
+    this.Size = new Size(FORM_WIDTH, FORM_HEIGHT);
+    this.StartPosition = FormStartPosition.CenterParent;
+    this.FormBorderStyle = FormBorderStyle.FixedDialog;
+    this.MaximizeBox = false;
+    this.Font = new Font("Segoe UI", FONT_SIZE);
+
+    var labels = new[] { "Product Code", "Product Name", "Description", "Category", "Unit Price", "Min Stock Level" };
+    TextBox[] fields = new TextBox[labels.Length];
+    for (int i = 0; i < labels.Length; i++)
+    {
+        var lbl = new Label
         {
-            this.Text = isEditMode ? "Edit Product" : "Add New Product";
-            this.Size = new Size(420, 400);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Font = new Font("Segoe UI", 9);
+            Text = labels[i] + ":",
+            Location = new Point(LEFT_MARGIN, TOP_MARGIN + i * VERTICAL_SPACING),
+            Size = new Size(LABEL_WIDTH, LABEL_HEIGHT)
+        };
 
-            var labels = new[] { "Product Code", "Product Name", "Description", "Category", "Unit Price", "Min Stock Level" };
-            TextBox[] fields = new TextBox[labels.Length];
-            for (int i = 0; i < labels.Length; i++)
-            {
-                var lbl = new Label
-                {
-                    Text = labels[i] + ":",
-                    Location = new Point(20, 25 + i * 45),
-                    Size = new Size(110, 20)
-                };
+        var box = new TextBox
+        {
+            Location = new Point(TEXTBOX_LEFT, TOP_MARGIN + i * VERTICAL_SPACING),
+            Size = new Size(TEXTBOX_WIDTH, labels[i] == "Description" ? MULTILINE_TEXTBOX_HEIGHT : TEXTBOX_HEIGHT),
+            Multiline = labels[i] == "Description"
+        };
+        fields[i] = box;
+        this.Controls.Add(lbl);
+        this.Controls.Add(box);
+    }
 
-                var box = new TextBox
-                {
-                    Location = new Point(140, 25 + i * 45),
-                    Size = new Size(240, labels[i] == "Description" ? 60 : 24),
-                    Multiline = labels[i] == "Description"
-                };
-                fields[i] = box;
-                this.Controls.Add(lbl);
-                this.Controls.Add(box);
-            }
+    txtProductCode = fields[0];
+    txtProductName = fields[1];
+    txtDescription = fields[2];
+    txtCategory = fields[3];
+    txtUnitPrice = fields[4];
+    txtMinStockLevel = fields[5];
 
-            txtProductCode = fields[0];
-            txtProductName = fields[1];
-            txtDescription = fields[2];
-            txtCategory = fields[3];
-            txtUnitPrice = fields[4];
-            txtMinStockLevel = fields[5];
+    var btnSave = new Button
+    {
+        Text = "Save",
+        BackColor = Color.MediumSeaGreen,
+        ForeColor = Color.White,
+        Location = new Point(SAVE_BUTTON_LEFT, BUTTON_TOP),
+        Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT)
+    };
+    btnSave.Click += BtnSave_Click;
 
-            var btnSave = new Button
-            {
-                Text = "Save",
-                BackColor = Color.MediumSeaGreen,
-                ForeColor = Color.White,
-                Location = new Point(200, 310),
-                Size = new Size(80, 30)
-            };
-            btnSave.Click += BtnSave_Click;
+    var btnCancel = new Button
+    {
+        Text = "Cancel",
+        BackColor = Color.White,
+        Location = new Point(CANCEL_BUTTON_LEFT, BUTTON_TOP),
+        Size = new Size(BUTTON_WIDTH, BUTTON_HEIGHT)
+    };
+    btnCancel.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
 
-            var btnCancel = new Button
-            {
-                Text = "Cancel",
-                BackColor = Color.White,
-                Location = new Point(300, 310),
-                Size = new Size(80, 30)
-            };
-            btnCancel.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
-
-            this.Controls.Add(btnSave);
-            this.Controls.Add(btnCancel);
-        }
+    this.Controls.Add(btnSave);
+    this.Controls.Add(btnCancel);
+}
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
